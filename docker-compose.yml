@@ -5,7 +5,7 @@ services:
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: MyDBRoot123
-      MYSQL_DATABASE: infs3208
+      MYSQL_DATABASE: cloud_computing
       MYSQL_USER: php
       MYSQL_PASSWORD: php
     networks:
