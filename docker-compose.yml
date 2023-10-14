@@ -10,13 +10,13 @@ services:
       MYSQL_USER: php
       MYSQL_PASSWORD: php
     networks:
-      - my-net
+      - mynet
 
   myredis:
     image: redis:latest
     restart: always
     networks:
-      - my-net
+      - mynet
 
   myphp:
     build: ./src/php
@@ -29,7 +29,7 @@ services:
       - mysql
       - myredis
     networks:
-      - my-net
+      - mynet
 
   mynginx:
     image: nginx:latest
