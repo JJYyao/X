@@ -1,0 +1,39 @@
+sudo snap install docker
+sudo docker pull nginx
+sudo docker pull php:8.2-fpm
+sudo docker pull mariadb:latest
+sudo docker pull redis:latest
+sudo docker images
+
+sudo docker run \
+--name mysql \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=MyDBRoot123 \
+-e MYSQL_DATABASE=php \
+-e MYSQL_USER=php \
+-e MYSQL_PASSWORD=php \
+-d mariadb:latest
+
+sudo docker run --name myredis -p 6379:6379 -d redis:latest
+
+cd ~ && git clone https://github.com/JJYyao/3208.git && cd ~/3208
+
+sudo docker run --name myphp -p 9000:9000 -v $HOME/3208/src:/var/www/html --link mysql:mysql --link myredis:myredis --privileged=true -d php:8.2-fpm
+
+sudo docker run \
+--name mynginx \
+-p 8080:80 \
+-v $HOME/3208/src:/var/www/html \
+-v $HOME/3208/src/nginx.ini:/etc/nginx/conf.d/default.conf \
+-v $HOME/3208/src/php-fpm.conf:/etc/php/8.2/fpm/php-fpm.conf \
+-v $HOME/3208/src/www.conf:/etc/php/8.2/fpm/pool.d/www.conf \
+--link myphp:myphp --privileged=true \
+-d nginx:latest
+
+
+git pull origin main
+
+
+
+
+
