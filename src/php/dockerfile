@@ -1,13 +1,5 @@
-FROM php:8.2-fpm
+FROM php:7.4-fpm
 
-RUN apt-get update && apt-get install -y \
-        && pecl install redis \
-        && docker-php-ext-enable redis \
-        && docker-php-ext-install mysqli \
-        && docker-php-ext-enable mysqli
-
-WORKDIR /var/www/html
-
-
-ENTRYPOINT ["php-fpm"]
+RUN pecl install igbinary \
+	&& docker-php-ext-install mysqli 
                                             
